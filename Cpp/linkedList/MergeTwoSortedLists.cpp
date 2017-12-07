@@ -65,6 +65,7 @@ public:
             prev->next = l1;
         else if (l2 != NULL) 
             prev->next = l2;
+		delete(prev);
         return head;
     }
     
