@@ -66,34 +66,61 @@ public:
     */
     //sol2: recursion http://www.cnblogs.com/grandyang/p/6216480.html
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        int m = getLength(l1);
+        int n = getLength(l2);
+        int diff = m-n;
+        int carry;
 
+        carry = diff>=0?addTwoNumbersHelper (l1,l2,diff):addTwoNumbersHelper(l2,l1,-diff);
+        if(carry>0)
+        {
+            ListNode* head = new ListNode(1);
+            head->next = diff>=0?l1:l2;
+            return head;
+        }
+        else
+            return diff>=0?l1:l2;
     }
     
-    ListNode* sumList(ListNode* l1, ListNode* l2, int& carry){
-        int num1 = l1 == NULL?0:l1->val;
-        int num2 = l2 == NULL?0:l2->val;
-        
-        int sum = num1 + num2;
-        ListNode* thisNode = new ListNode(sum%10);
-        
-        ListNode* n1 = l1 == NULL?NULL:l1->next;
-        ListNode* n2 = l2 == NULL?NULL:l2->next;
-
-
-        thisNode->next = sumList(n1, n2, carry);
-
-        carry = sum >=10?1:0;
-        
-        return thisNode;
-    } 
-    
-    int getLength(ListNode* l)
+    int addTwoNumbersHelper(ListNode* l1, ListNode* l2, int diff) 
     {
-        int length(0);
-        while(l!=NULL){ 
-            length++;
-            l = l->next;
+        int carry(0);
+        if (l1==NULL&&l2==NULL)
+            return 0;
+        
+        ListNode* l1n = l1->next;
+        ListNode* l2n;
+        if (diff > 0)
+        {
+            l2n = l2;          
+            diff--;
         }
-        return length;
+        else
+        {
+            l2n = l2->next;
+            l1->val += l2->val;
+        }
+        
+        
+        l1->val += addTwoNumbersHelper(l1n, l2n, diff);
+        if (l1->val >= 10)
+        {
+            carry = 1;
+            l1->val -=10;
+        }
+        else
+            carry = 0;
+        return carry;        
+    }
+    
+    int getLength(ListNode* node)
+    {
+        int L(0);
+        while(node!=NULL)
+        {
+            L++;
+            node = node->next;
+        }
+        return L;
     }
 };
