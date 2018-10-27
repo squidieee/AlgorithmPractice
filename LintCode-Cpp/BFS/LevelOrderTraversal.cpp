@@ -29,26 +29,30 @@ return its level order traversal as:
 public:
     // BFS, iterative
     /*
-    vector<vector<int>> levelOrder(TreeNode* root) {
-        vector<vector<int>> levelVals;
-        if (root==NULL) return levelVals;
-        queue<TreeNode*> nodes;
-        nodes.push(root);
-        while(!nodes.empty()){
-            int len = nodes.size();
-            vector<int> vals;
-            for(int i =0;i<len;i++){
-                TreeNode* n = nodes.front();
-                nodes.pop();
-                vals.push_back(n->val);
-                if (n->left!=NULL)
-                    nodes.push(n->left);
-                if (n->right!=NULL)
-                    nodes.push(n->right);
+    vector<vector<int>> levelOrder(TreeNode * root) {
+        // write your code here
+        vector<vector<int>> vals;
+        if (root==NULL) return vals;
+        
+        queue<TreeNode*> q;
+        q.push(root);
+        
+        while (!q.empty())
+        {
+            int len = q.size();
+            vector<int> level;
+            for(int i = 0; i < len; i++)
+            {
+                TreeNode* node = q.front();
+                q.pop();
+                level.push_back(node->val);
+                
+                if (node->left!=NULL) q.push(node->left);
+                if (node->right!=NULL) q.push(node->right);
             }
-            levelVals.push_back(vals);
+            vals.push_back(level);
         }
-        return levelVals;
+        return vals;
     }
     */
     //DFS, recursive, preorder

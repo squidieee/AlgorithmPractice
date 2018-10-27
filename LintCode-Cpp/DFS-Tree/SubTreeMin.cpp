@@ -1,67 +1,4 @@
 /*
-
-Home
-Algorithms
-AI
-VIP
-Language
-avatarweipuz
-Back
-596. Minimum Subtree
-Description
-Given a binary tree, find the subtree with minimum sum. Return the root of the subtree.
-
-LintCode will print the subtree which root is your return node.
-It's guaranteed that there is only one subtree with minimum sum and the given binary tree is not an empty tree.
-
-Have you met this question in a real interview?  
-Example
-Given a binary tree:
-
-     1
-   /   \
- -5     2
- / \   /  \
-0   2 -4  -5 
-return the node 1.
-
-Related Problems
-DifficultyEasy
-Total Accepted11693
-Total Submitted31526
-Accepted Rate37%
- Show Tags
- Company
-Leaderboard - Java
-
-gloria666
-167ms
-
-annig
-167ms
-
-BooleanWu
-167ms
-
-miaaa33
-167ms
-
-However
-167ms
-Note
-既然是全局最小。。就弄个全局变量嘛。。。
-Crystaleee
-Created at 19 days ago
-时间复杂度O（n），再定义一个函数用于计算左子树，右子树
-yuhaiyuwaseda
-Created at a month ago
-9/16: 看答案做出来的 2天后重做
-yang651
-Created at a month ago
-Discuss
-No topic
-
-  
 596. Minimum Subtree
 Given a binary tree, find the subtree with minimum sum. Return the root of the subtree.
 
