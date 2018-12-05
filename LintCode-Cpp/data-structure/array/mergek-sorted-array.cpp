@@ -1,105 +1,74 @@
 /* 
-104. Merge K Sorted Lists
-Merge k sorted linked lists and return it as one sorted list.
-
-Analyze and describe its complexity.
+486. Merge K Sorted Arrays
+Given k sorted integer arrays, merge them into one sorted array.
 
 Example
-Given lists:
+Given 3 sorted arrays:
 
 [
-  2->4->null,
-  null,
-  -1->null
-],
-return -1->2->4->null.
+  [1, 3, 5, 7],
+  [2, 4, 6],
+  [0, 8, 9, 10, 11]
+]
+return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].
+
+Challenge
+Do it in O(N log k).
+
+N is the total number of integers.
+k is the number of arrays.
 */
 
-/**
- * Definition of ListNode
- * class ListNode {
- * public:
- *     int val;
- *     ListNode *next;
- *     ListNode(int val) {
- *         this->val = val;
- *         this->next = NULL;
- *     }
- * }
- */
+
  class Solution {
 public:
     /**
-     * @param lists: a list of ListNode
-     * @return: The head of one sorted list.
+     * @param arrays: k sorted integer arrays
+     * @return: a sorted array
      */
-    ListNode *mergeKLists(vector<ListNode *>& lists) {
-        // K lists, each has N nodes
-        /*
-        // v1: O(NK)
-        if (lists.empty()) return nullptr;
-        if (lists.size() == 1) return lists[0];
-        ListNode* head = lists[0];
-        for(int i = 1; i < lists.size(); i++)
-        {
-            head = mergeTwoList(head, lists[i]);
-        }
-        
-        return head;
-        */
-        
-        // v2: O(NlogK)
-        if (lists.empty()) return nullptr;
-        
-        return mergeSortHelper(lists, 0, lists.size() - 1);
-        
+    vector<int> mergekSortedArrays(vector<vector<int>> &arrays) {
+       if (arrays.empty()) return vector<int>();
+       
+       return mergekSortedArraysHelper(arrays, 0, arrays.size() - 1);
     }
     
-    // merge two list: O(NK)
-    // two pointer: one at n1, one at n2
-    // return the merged list
-    ListNode* mergeTwoList(ListNode* n1, ListNode* n2)
+    // O(NK) if merge two and return merged one; then merge the merged one with new one
+    // O(NlogK) merge sort
+    
+    vector<int> merge2SortedArray(vector<int>& a, vector<int>& b)
     {
-        if (n1 == nullptr) return n2;
-        if (n2 == nullptr) return n1;
+        if (a.empty()) return b;
+        if (b.empty()) return a;
         
-        ListNode dummy(0);
-        
-        ListNode* in1 = n1;
-        ListNode* in2 = n2;
-        ListNode* prev = &dummy;
-        
-        while(in1 != nullptr || in2 != nullptr)
+        vector<int> mergedArray;
+        int ia(0), ib(0);
+        while(ia < a.size() || ib < b.size())
         {
-            if ( in2 == nullptr || (in1!= nullptr && in1->val <= in2->val))
+            if (ib > b.size() - 1 || (ia < a.size() && a[ia] <= b[ib]))
             {
-                prev->next = in1;
-                prev = prev->next;
-                in1 = in1->next;
+                mergedArray.push_back(a[ia]);
+                ia++;
             }
             else
             {
-                prev->next = in2;
-                prev = prev->next;
-                in2 = in2->next;
+                mergedArray.push_back(b[ib]);
+                ib++;
             }
         }
-        
-        return dummy.next;
+        return mergedArray;
     }
     
-    // merge sort: O(NlogK)
-    // merge each two nodes 
-    // return the merged list
-    ListNode* mergeSortHelper(vector<ListNode *>& lists, int lstart, int lend )
+    vector<int> mergekSortedArraysHelper(vector<vector<int>> &arrays, int start, int end)
     {
-        if (lstart == lend) return lists[lstart];
-        if (lstart + 1 == lend) return mergeTwoList(lists[lstart], lists[lend]);
+        if (start == end) return arrays[start];
+        if (start + 1 == end) return merge2SortedArray(arrays[start], arrays[end]);
         
-        int lmid = lstart + (lend - lstart) / 2;
-        ListNode* firstHalf = mergeSortHelper(lists, lstart, lmid);
-        ListNode* secondHalf = mergeSortHelper(lists, lmid + 1, lend);
+        int mid = start + (end - start)/2;
+        vector<int> firstHalf = mergekSortedArraysHelper(arrays, start, mid);
+        vector<int> secondHalf = mergekSortedArraysHelper(arrays, mid+1, end);
         
-        return mergeTwoList(firstHalf, secondHalf);
+        return merge2SortedArray(firstHalf, secondHalf);
     }
+    
+    
 };
