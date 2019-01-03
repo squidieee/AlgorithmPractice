@@ -50,8 +50,10 @@ public:
     // use the approach of x + (x - 1) + (x - 2) + .. + 1 >= n 
     // x is the min number of drop
     // suppose there is min number of drop as x
-    // since it is min, we'll drop at x, so that even if it breaks, we drop linearly
-    // from 1 to x - 1 (x-1 times), we'll find the floor
-    // if not break, we then drop at x + (x - 1) so that even if it breaks, we drop linearly
+    // we want to drop at a certain floor so that the min is still the min even if 1st egg breaks
+    // if breaks, we have to drop 2nd linearly -> 1 + ?-1 = x -> ? = x -> we'll drop at x
+    // if not break, consider it as subproblem with floor starting from x to n
+    // since we use one time drop, the min is x-1, repeat the above logic, 
+    // we then drop at x + (x - 1) so that even if it breaks, we drop linearly
     // from x + 1 to x + (x - 1) - 1 (x-2 times), we'll find the floor
 };
