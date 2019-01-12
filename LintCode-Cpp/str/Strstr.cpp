@@ -30,6 +30,7 @@ public:
         // Write your code here
         
         // ver1: O(n2)
+        /*
         if (target.empty()) return 0;
         if (source.empty() || target.empty()) return -1;
         if (source.length() < target.length()) return -1;
@@ -48,8 +49,49 @@ public:
             }
         }
         
-        return -1;    
+        return -1;
+        */
+        // ver 2: KMP
+        if (target.empty()) return 0;
+        if (source.empty() || target.empty()) return -1;
+        if (source.length() < target.length()) return -1;
         
+        vector<int> prefixTable(target.size(), 0);
+        unordered_map<char, int> map;
+        // compute prefix table
+        for(int i = 0; i < target.size(); i++)
+        {
+            if(map.find(target[i]) == map.end())
+            {
+                map.insert({target[i], i});
+                prefixTable[i] = 0;
+            }
+            else
+            {
+                prefixTable[i] = map.at(target[i]) + 1;
+                map.at(target[i]) = i;
+            }
+        }
+        
+        // compare
+        int si = 0;
+        while(si <= source.size() - target.size())
+        {
+            for(int ti = 0; ti < target.size(); ti++)
+            {
+                if (source[si + ti] != target[ti])
+                {
+                    // shift si by prefix
+                    si += prefixTable[ti];
+                    break;
+                }
+                
+                if (ti == target.size() - 1) return si;
+            }
+            si++;
+        }
+        
+        return -1;
     }
 };
 
