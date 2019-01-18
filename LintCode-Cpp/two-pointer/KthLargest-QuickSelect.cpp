@@ -57,6 +57,14 @@ int divideConquer(vector<int>& num, int start, int end, int k)
     
     return num[right + 1];
 }
+// partition array into two halves
+// do not think in the way that how many vals are larger then pivot
+// think as comparing the index
+// see if the beginning index of the right half <= k: in the right half
+// if the ending index of the left half >= k: in the left half
+// in the case of left half, no need to do right - k, since the index (left or right) directly indicate how many vals are larger than it after partition
+// so passing the absolute index of k is fine
+    
     int partition(vector<int>& nums, int start, int end, int ki)
     {
         if (start >= end) return nums[ki];
@@ -86,4 +94,6 @@ int divideConquer(vector<int>& num, int start, int end, int k)
         
         return nums[ki];
     }
+
+    
 };

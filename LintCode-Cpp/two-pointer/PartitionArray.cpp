@@ -53,3 +53,7 @@ public:
     }
    
 };
+/// ending: 
+/// o o o o o x x x x x
+///         | |
+///         r l

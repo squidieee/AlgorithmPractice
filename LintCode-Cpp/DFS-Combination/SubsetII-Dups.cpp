@@ -49,9 +49,8 @@ public:
         for(int i = index; i < nums.size(); i++) // for each child of the current subset
         {
             // if duplicate
-            if (i > 0 && 
-                nums[i] == nums[i - 1] && 
-                i != index)  // is it the first time we run it in this level? since [1,2]->[1,2,2] should be added 
+            if (i > index && 
+                nums[i] == nums[i - 1] )  // is it the first time we run it in this level? since [1,2]->[1,2,2] should be added 
                 continue;
                 
             subset.push_back(nums[i]);

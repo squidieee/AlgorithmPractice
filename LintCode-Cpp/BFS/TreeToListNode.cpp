@@ -14,6 +14,10 @@ return
 
 [
   1->null,
+  2->3->null,
+  4->null
+]
+
  /**
  * Definition of TreeNode:
  * class TreeNode {
@@ -76,7 +80,7 @@ public:
         }
         return result;
     }    
-    // make sure line 64 can not be written as: ListNode node(cTreeNode->val);
+    // make sure line 89 can not be written as: ListNode node(cTreeNode->val);
     // because the initialized instance will be released in the next iteration!
     
     /* DFS */

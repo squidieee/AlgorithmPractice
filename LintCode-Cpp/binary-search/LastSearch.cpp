@@ -43,3 +43,9 @@ public:
         return -1;
     }
 };
+
+// How to make sure go last one?
+// go right half if equal
+// in an extreme case, think of an array that has same numbers
+// we will want our algorithm to find the last element of that array
+// so when equal, we should go second half

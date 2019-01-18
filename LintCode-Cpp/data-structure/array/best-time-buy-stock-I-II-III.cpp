@@ -93,9 +93,15 @@ public:
      */
     int maxProfit(vector<int> &prices) {
         // [] or [1] => 0
-        // [.., prev, 3] => if 3 >= prev, we may sell at 3; else 3 may be time to buy  
-        //          store the best profit i
-        
+        // segment array into two halves:
+        // [0, i] which contains the first transaction
+        // [i+1, n-1] which contains the second transaction
+        // our goal is to find:
+        // for N intervals [0, i] N > i >= 0  
+        // What is the best profit for each interval?
+        // on the other hand for [i, N-1]
+        // What is the best profit for each interval?
+        // then we combine them together assuming segmented point i from 0 to N-1
         if (prices.size() < 2) return 0;
         
         int ibuy(0);

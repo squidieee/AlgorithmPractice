@@ -47,6 +47,7 @@ public:
     BSTIterator(TreeNode * root) {
         TreeNode* node = root;
         
+        // record the left children as starters
         while(node != NULL)
         {
             _nodes.push(node);
@@ -58,14 +59,17 @@ public:
      * @return: True if there has next node, or false
      */
     bool hasNext() {
-        // write your code here
         return !_nodes.empty();
     }
 
     /*
      * @return: return next node O(1)
      */
-    TreeNode * next() {
+    // this will be called in a loop as "while(hasNext())"
+    //  the deepest left node will be first taken out
+    // if it has right sub tree(right child), we go leftmost of this sub tree
+    // and record all left children
+     TreeNode * next() {
         if (_nodes.empty()) return NULL;
         
         TreeNode* cur = _nodes.top();

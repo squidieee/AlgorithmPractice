@@ -42,7 +42,7 @@ public:
         // sift-down
         // compare with min(two-children)
         // starts from internal nodes: 
-        // The number of internal nodes in a complete binary tree of n nodes is 
+        // The number of internal nodes in a complete binary tree of n nodes is n/2
         for(int i = (A.size()-1)/2; i >= 0; i--)
         {
             siftdown(A,i);

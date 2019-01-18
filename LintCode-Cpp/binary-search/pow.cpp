@@ -39,3 +39,49 @@ public:
         return current;
     }
 };
+
+/// WRITE WITHOUT TEST
+// if n >= 0:
+double power(double x, int n)
+{
+  if (n == 0) return 1;
+  if (n == 1) return x;
+  
+  double result = power(x, n/2);
+  result = result * result;
+  if (n%2 == 1)
+  {
+    result = result * x;
+  }
+  
+  return result;
+}
+
+// if n <= 0:
+// do the same thing but with 1/x
+
+
+// -------------
+// if brutal force:
+// y = y * x
+// O(n)
+// exponetial:
+// x = x * x
+// x, x^2, x^4, .. 8
+// keep track on k <= n
+// lowerbound, upperbound
+// range of int range: upperbound
+// meet lowerbound: linear until n?
+// x^n = x^lb * x^(n - lb)
+// call it again with new n as n - lb?
+
+// think from the result, not the beginning
+// n == even
+// x^n = x^(n/2) * x^(n/2)
+// x^(n/2) = x^(n/4) * x^(n/4)
+// ...
+// n == odd
+// x^n = x * x^(n/2) * x^(n/2)
+// n == 0: 1
+// n == 1: fine
+// n == 2: fine

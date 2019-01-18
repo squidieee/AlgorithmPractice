@@ -25,7 +25,7 @@ public:
         while(start + 1 < end)
         {
             int mid = start + (end - start)/2;
-            if (target <= nums[mid])
+            if (target <= nums[mid]) 
             {
                 end = mid;
             }
@@ -42,5 +42,6 @@ public:
     
     // O(log n): binary search
     // How to make sure first position?
-    // go left half if equal
+    // go left half if equal to make sure we will end with the first one
+    
 };
