@@ -52,7 +52,7 @@ public:
     }
     
     // generate a permutation
-    // take a componenet from 1: n, add it to the subset if valid
+    // take a componenet from 0: n, add it to the subset if valid
     // if subset.size() == n, create formatted solution and push it to results
     
     void dfs(int n, vector<bool>& visited, vector<int>& subset, vector<vector<string>>& results)
@@ -62,7 +62,7 @@ public:
             if (visited[i])
                 continue;
             
-            if (!isValid(subset, i))
+            if (!isValid(subset, i)) // trim
                 continue;
             
             subset.push_back(i);

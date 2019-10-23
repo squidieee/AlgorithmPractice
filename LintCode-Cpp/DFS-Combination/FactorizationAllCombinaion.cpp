@@ -57,10 +57,9 @@ public:
         }
         
         // push remain as one unit
-        subset.push_back(num);
+        subset.push_back(num); // 12 = 2 x 6: this is to add 6 if 2 has been added in the previous level
         dfs(1, start, subset, results);
         subset.pop_back();            
-
     }
     
     // first thought:

@@ -65,35 +65,35 @@ int divideConquer(vector<int>& num, int start, int end, int k)
 // in the case of left half, no need to do right - k, since the index (left or right) directly indicate how many vals are larger than it after partition
 // so passing the absolute index of k is fine
     
-    int partition(vector<int>& nums, int start, int end, int ki)
+int partition(vector<int>& nums, int start, int end, int ki)
+{
+    if (start >= end) return nums[ki];
+    
+    int mid = start + (end - start)/2;
+    int pivot = nums[mid];
+    
+    int left(start), right(end);
+    while(left <= right)
     {
-        if (start >= end) return nums[ki];
+        while (left <= right && nums[left] < pivot)
+        { left++; }
         
-        int mid = start + (end - start)/2;
-        int pivot = nums[mid];
+        while (left <= right && nums[right] > pivot)
+        { right--;}
         
-        int left(start), right(end);
-        while(left <= right)
+        if (left <= right)
         {
-            while (left <= right && nums[left] < pivot)
-            { left++; }
-            
-            while (left <= right && nums[right] > pivot)
-            { right--;}
-            
-            if (left <= right)
-            {
-                swap(nums[left++], nums[right--]);
-            }
+            swap(nums[left++], nums[right--]);
         }
-        
-        if (ki >= left)
-            return partition(nums, left, end, ki);
-        if (ki <= right)
-            return partition(nums, start, right,ki);
-        
-        return nums[ki];
     }
+    
+    if (ki >= left)
+        return partition(nums, left, end, ki);
+    if (ki <= right)
+        return partition(nums, start, right,ki);
+    
+    return nums[ki];
+}
 
     
 };

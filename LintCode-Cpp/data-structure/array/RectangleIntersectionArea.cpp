@@ -48,6 +48,8 @@ public:
         // compute the intersection area
         int dist_x = min(r1.x, r2.x) - max(l1.x, l2.x);
         int dist_y = min(l1.y, l2.y) - max(r1.y, r2.y);
+
+        return dist_x * dist_y;
     }
     
 };

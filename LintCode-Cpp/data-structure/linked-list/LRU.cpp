@@ -121,7 +121,4 @@ public:
     unordered_map<int, shared_ptr<Node>> _map;
     shared_ptr<Node> _head;
     shared_ptr<Node> _tail;
-    
-
-    
 };

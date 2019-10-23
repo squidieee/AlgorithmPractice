@@ -63,6 +63,7 @@ public:
         _map.erase(val);
         
         _array[idx] = _array.back();
+        if (_map.find(_array[idx]) != _map.end()) _map.at(_array[idx]) = idx;
         _array.pop_back();
         return true;
     }

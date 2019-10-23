@@ -11,6 +11,21 @@ Given array [3,2,3,1,2], return 1.
 
 class Solution {
 public:
+    
+    /// SECOND PASS
+    int maxProfit(vector<int> &prices) {
+        if (prices.size() < 2) return 0;
+        int minPrice = prices[0];
+        int maxProfit = 0;
+  
+        for(int i = 0; i < prices.size(); i++)
+        {
+          maxProfit = max(prices[i] - minPrice, maxProfit);
+          minPrice = min(minPrice, prices[i]);
+        }
+        return maxProfit;
+      }
+    /// FIRST PASS
     /**
      * @param prices: Given an integer array
      * @return: Maximum profit
@@ -94,13 +109,13 @@ public:
     int maxProfit(vector<int> &prices) {
         // [] or [1] => 0
         // segment array into two halves:
-        // [0, i] which contains the first transaction
-        // [i+1, n-1] which contains the second transaction
-        // our goal is to find:
-        // for N intervals [0, i] N > i >= 0  
-        // What is the best profit for each interval?
-        // on the other hand for [i, N-1]
-        // What is the best profit for each interval?
+        // [0, k] which contains the first transaction
+        // [k+1, n-1] which contains the second transaction
+        // our goal is to find the k
+        // for i = [0, N]  
+        // What is the best profit for each interval if we sell at i? (first transaction)
+        // on the other hand 
+        // What is the best profit for each interval if we buy at i? (second transaction)
         // then we combine them together assuming segmented point i from 0 to N-1
         if (prices.size() < 2) return 0;
         
