@@ -1,55 +1,84 @@
 /* 
-160. Find Minimum in Rotated Sorted Array II
+617. Maximum Average Subarray II
 
-Suppose a sorted array is rotated at some pivot unknown to you beforehand.
-
-(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
-
-Find the minimum element.
+Given an array with positive and negative numbers, find the maximum average subarray which length should be greater or equal to given length k.
 
 Example
 Example 1:
 
-Input :[2,1]
-Output : 1.
+Input:
+[1,12,-5,-6,50,3]
+3
+Output:
+15.667
+Explanation:
+ (-6 + 50 + 3) / 3 = 15.667
 Example 2:
 
-Input :[4,4,5,6,7,0,1,2]
-Output : 0.
+Input:
+[5]
+1
+Output:
+5.000
 Notice
-The array may contain duplicates.
+It's guaranteed that the size of the array is greater or equal to k.
 */
 
 class Solution {
 public:
     /**
-     * @param nums: a rotated sorted array
-     * @return: the minimum number in the array
+     * @param nums: an array with positive and negative numbers
+     * @param k: an integer
+     * @return: the maximum average
      */
-    int findMin(vector<int> &nums) {
-        if (nums.size() < 1) return -1;
+    double maxAverage(vector<int> &nums, int k) {
+        // def left and right 
+        double left = INT_MAX;
+        double right = INT_MIN;
         
-        int start(0), end(nums.size() - 1);
-        
-        while(start + 1 < end)
+        for(int num: nums)
         {
-            int mid = start + (end - start)/2;
-            int pivotNum = nums[end];
-
-            if (nums[mid] < pivotNum)
+            left = min(left, (double)num);
+            right = max(right, (double)num);
+        }
+        
+        // binary search
+        const double step = 1e-12;
+        vector<double> sumArray(nums.size() + 1, 0);
+        while(left + step < right)
+        {
+            // apply average
+            double avg = (left + right) / 2;
+            for(int i = 1; i < sumArray.size(); i++)
             {
-                end = mid;
+                sumArray[i] = sumArray[i-1] + nums[i-1] - avg;
             }
-            else if (nums[mid] > pivotNum)
+            
+            // get max subarray sum with size >= k
+            double maxSum = INT_MIN;
+            double minPre = 0;
+            for(int i = k; i < sumArray.size(); i++)
             {
-                start = mid;
+                maxSum = max(maxSum, sumArray[i] - minPre);
+                minPre = min(minPre, sumArray[i - k + 1]);
+            }
+            
+            // go left or right
+            if(maxSum > 0)
+            {
+                left = avg;
             }
             else
             {
-                end--; // worst case O(n)
+                right = avg;
             }
         }
         
-        return min(nums[start], nums[end]);
+        return left;
     }
 };
+
+// sliding window of O(n) will not work
+// require O(n^2)
+
+// binary search over answer: O(log(max - min) * N)
