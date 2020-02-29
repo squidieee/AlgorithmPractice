@@ -63,8 +63,9 @@ public:
         }
         
         TreeNode* root = new TreeNode(postorder[postEnd]);
-        root->left = dfs(inorder, postorder, inStart, i1-1, postStart, postStart+i1-inStart-1);
-        root->right = dfs(inorder, postorder, i1+1, inEnd, postStart+i1-inStart, postEnd-1);
+        int numNodesLeftTree = i1-inStart;
+        root->left = dfs(inorder, postorder, inStart, i1-1, postStart, postStart+numNodesLeftTree-1);
+        root->right = dfs(inorder, postorder, i1+1, inEnd, postStart+numNodesLeftTree, postEnd-1);
         
         return root;
     }
