@@ -76,8 +76,8 @@ public:
         return result;
     }
     
-    // O(NK) if merge two and return merged one; then merge the merged one with new one
-    // O(NlogK) merge sort
+    // O(NK^2) get min out of k for each num out of NK
+    // O(NKlogK) merge sort or heap
     
     vector<int> merge2SortedArray(vector<int>& a, vector<int>& b)
     {
